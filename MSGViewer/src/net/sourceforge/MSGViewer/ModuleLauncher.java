@@ -30,7 +30,7 @@ public class ModuleLauncher extends BaseModuleLauncher
         
         root = new LocalRoot("MSGViewer", "MSGViewer", false, false);
 
-        root.setBaseLanguage("de");
+        root.setBaseLanguage("en");
         root.setDefaultLanguage("en");
 
         // root.setWebStartUlr(getWebStartUrl("http://redeye.hoffer.cx/MSGViewer/launch.jnlp"));

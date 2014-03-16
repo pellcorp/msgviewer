@@ -34,7 +34,7 @@ public class Plugin implements at.redeye.FrameWork.Plugin.Plugin
             public void do_stuff() throws Exception {
                 HelpFileLoader helper = new HelpFileLoader();
 
-                String licence = helper.loadHelp("/at/redeye/MSGViewer/Plugins/poi", "Apache");
+                String licence = helper.loadHelp("/net/sourceforge/MSGViewer/Plugins/poi", "Apache");
                 builder.append(licence);
             }
         };
@@ -68,7 +68,7 @@ public class Plugin implements at.redeye.FrameWork.Plugin.Plugin
             public void do_stuff() throws Exception {
                 HelpFileLoader helper = new HelpFileLoader();
 
-                String changelog = helper.loadHelp("/at/redeye/MSGViewer/Plugins/poi", "ChangeLog");
+                String changelog = helper.loadHelp("/net/sourceforge/MSGViewer/Plugins/poi", "ChangeLog");
                 builder.append(changelog);
             }
         };

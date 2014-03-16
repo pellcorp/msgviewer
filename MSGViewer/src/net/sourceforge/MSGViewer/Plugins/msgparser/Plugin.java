@@ -36,7 +36,7 @@ public class Plugin implements at.redeye.FrameWork.Plugin.Plugin
             public void do_stuff() throws Exception {
                 HelpFileLoader helper = new HelpFileLoader();
 
-                String licence = helper.loadHelp("/at/redeye/MSGViewer/Plugins/msgparser", "GPL3");
+                String licence = helper.loadHelp("/net/sourceforge/MSGViewer/Plugins/msgparser", "GPL3");
                 builder.append(licence);
             }
         };
@@ -73,7 +73,7 @@ public class Plugin implements at.redeye.FrameWork.Plugin.Plugin
             public void do_stuff() throws Exception {
                 HelpFileLoader helper = new HelpFileLoader();
 
-                String changelog = helper.loadHelp("/at/redeye/MSGViewer/Plugins/msgparser", "ChangeLog");
+                String changelog = helper.loadHelp("/net/sourceforge/MSGViewer/Plugins/msgparser", "ChangeLog");
                 builder.append(changelog);
             }
         };

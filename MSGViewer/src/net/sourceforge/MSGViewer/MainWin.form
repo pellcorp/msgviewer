@@ -6,12 +6,12 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Programm"/>
+            <Property name="text" type="java.lang.String" value="Program"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMOpenFile">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Datei &#xf6;ffnen"/>
+                <Property name="text" type="java.lang.String" value="File Open ..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMOpenFileActionPerformed"/>
@@ -19,7 +19,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMSaveAs">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Datei speichern unter..."/>
+                <Property name="text" type="java.lang.String" value="Save File as ..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMSaveAsActionPerformed"/>
@@ -27,7 +27,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMSettings">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Einstellungen"/>
+                <Property name="text" type="java.lang.String" value="Options"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMSettingsActionPerformed"/>
@@ -35,7 +35,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMQuit">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Beenden"/>
+                <Property name="text" type="java.lang.String" value="Quit"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMQuitActionPerformed"/>
@@ -69,7 +69,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMAbout">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#xdc;ber"/>
+                <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMAboutActionPerformed"/>
@@ -77,7 +77,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMChangeLog">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#xc4;nderungsprotokoll"/>
+                <Property name="text" type="java.lang.String" value="Changelog"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMChangeLogActionPerformed"/>
@@ -122,7 +122,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane" alignment="1" pref="841" max="32767" attributes="0"/>
+          <Component id="jSplitPane" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -224,7 +224,7 @@
                           <Component id="jSFontSize" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="371" max="32767" attributes="0"/>
+                          <EmptySpace pref="376" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -264,7 +264,7 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="JCBfix">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Fixe Schriftart"/>
+                    <Property name="text" type="java.lang.String" value="Fixed Font"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JCBfixActionPerformed"/>
@@ -283,7 +283,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Schriftgr&#xf6;&#xdf;e"/>
+                    <Property name="text" type="java.lang.String" value="Fontsize"/>
                   </Properties>
                 </Component>
               </SubComponents>

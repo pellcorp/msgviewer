@@ -39,7 +39,7 @@ public class MSGFileFilter extends javax.swing.filechooser.FileFilter
 
     @Override
     public String getDescription() {
-       return root.MlM("Outlook *.msg, oder *.mbox");
+       return root.MlM("Outlook *.msg, or *.mbox");
     }
 
 }

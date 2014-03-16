@@ -28,7 +28,7 @@ public class HeaderActionPopup extends JPopupMenu
     {
         this.mainwin = mainwin;
 
-        JMenuItem menuItem = new JMenuItem(mainwin.MlM("Datei öffnen"));
+        JMenuItem menuItem = new JMenuItem(mainwin.MlM("File open"));
         
         menuItem.addActionListener(new ActionListener() {
 
@@ -51,7 +51,7 @@ public class HeaderActionPopup extends JPopupMenu
         MainWin.logger.info("Protocol:" + url.getProtocol());
 
         if (url.getProtocol().equals("file")) {
-            menuItem = new JMenuItem(mainwin.MlM("Datei speichern unter"));
+            menuItem = new JMenuItem(mainwin.MlM("File save as"));
 
             menuItem.addActionListener(new ActionListener() {
 

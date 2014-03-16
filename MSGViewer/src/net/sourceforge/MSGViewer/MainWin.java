@@ -71,8 +71,6 @@ public class MainWin extends BaseDialog implements HyperlinkListener
     private MessageParserFactory parser_factory = new MessageParserFactory();
     private String bodyText = null;
 
-    private String MESSAGE_NO_DESKTOP_ICON;
-
     private static String last_path = null;        
     
     int wating_thread_pool_counter = 0;
@@ -90,7 +88,6 @@ public class MainWin extends BaseDialog implements HyperlinkListener
 
         initComponents();
 
-        MESSAGE_NO_DESKTOP_ICON = MlM("Das Desktopicon konnte leider nicht erzeugt werden.");      
         try {
            tmp_dir = TempDir.getTempDir(null, null);
            delete_tmp_dir = true;
@@ -120,7 +117,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         
         if( file_name == null )
         {
-            header.setText(MlM("Ziehe eine Outlook Datei in das Fenster") );
+            header.setText(MlM("Drag a msg file into this window") );
         } else {
             EventQueue.invokeLater(new Runnable() {
 
@@ -253,7 +250,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         File file = new File(file_name);
 
         if( !file.exists() )
-            throw new FileNotFoundException( MlM( String.format("Datei %s nicht gefunden",file_name)) );
+            throw new FileNotFoundException( MlM( String.format("File %s not found",file_name)) );
                 
         if( file.getName().toLowerCase().endsWith(".msg") )
         {
@@ -310,7 +307,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
 
         if( message.getDate() != null )
         {
-            sb.append(MlM("Datum"));
+            sb.append(MlM("Date"));
             sb.append(": ");
             sb.append(DateFormat.getDateTimeInstance().format(message.getDate()));
             sb.append("<br/>");
@@ -318,7 +315,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
 
         if( message.getToEmail() != null || message.getToName() != null )
         {
-            sb.append(MlM("An:"));
+            sb.append(MlM("To:"));
             sb.append(" ");
         }
 
@@ -559,7 +556,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         if( file.exists() )
             return file.toString();
         
-        byte bytes[] = ReadFile.getBytesResource(this.getClass(), "/at/redeye/MSGViewer/resources/icons/rg1024_yellow_mail.png");
+        byte bytes[] = ReadFile.getBytesResource(this.getClass(), "/net/sourceforge/MSGViewer/resources/icons/rg1024_yellow_mail.png");
         FileOutputStream writer = new FileOutputStream(file);        
         writer.write(bytes);
         writer.close();
@@ -777,7 +774,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             }
         });
 
-        JCBfix.setText("Fixe Schriftart");
+        JCBfix.setText("Fixed Font");
         JCBfix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JCBfixActionPerformed(evt);
@@ -798,7 +795,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             }
         });
 
-        jLabel1.setText("Schriftgröße");
+        jLabel1.setText("Fontsize");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -815,7 +812,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                 .addComponent(jSFontSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(371, Short.MAX_VALUE))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -849,9 +846,9 @@ public class MainWin extends BaseDialog implements HyperlinkListener
 
         jSplitPane.setRightComponent(jPanel1);
 
-        jMenu1.setText("Programm");
+        jMenu1.setText("Program");
 
-        jMOpenFile.setText("Datei öffnen");
+        jMOpenFile.setText("File Open ...");
         jMOpenFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMOpenFileActionPerformed(evt);
@@ -859,7 +856,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         });
         jMenu1.add(jMOpenFile);
 
-        jMSaveAs.setText("Datei speichern unter...");
+        jMSaveAs.setText("Save File as ...");
         jMSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMSaveAsActionPerformed(evt);
@@ -867,7 +864,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         });
         jMenu1.add(jMSaveAs);
 
-        jMSettings.setText("Einstellungen");
+        jMSettings.setText("Options");
         jMSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMSettingsActionPerformed(evt);
@@ -875,7 +872,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         });
         jMenu1.add(jMSettings);
 
-        jMQuit.setText("Beenden");
+        jMQuit.setText("Quit");
         jMQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMQuitActionPerformed(evt);
@@ -905,7 +902,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         jMenu2.add(jMNav);
         jMenu2.add(jSeparator1);
 
-        jMAbout.setText("Über");
+        jMAbout.setText("About");
         jMAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMAboutActionPerformed(evt);
@@ -913,7 +910,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         });
         jMenu2.add(jMAbout);
 
-        jMChangeLog.setText("Änderungsprotokoll");
+        jMChangeLog.setText("Changelog");
         jMChangeLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMChangeLogActionPerformed(evt);
@@ -937,7 +934,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
+            .addComponent(jSplitPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

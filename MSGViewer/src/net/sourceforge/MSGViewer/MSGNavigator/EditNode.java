@@ -85,7 +85,7 @@ public class EditNode extends BaseDialog{
         jtHex.setRows(5);
         jScrollPane1.setViewportView(jtHex);
 
-        jButton1.setText("Speichern");
+        jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -99,7 +99,7 @@ public class EditNode extends BaseDialog{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addContainerGap(430, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(

@@ -32,12 +32,12 @@ public class Internals extends BaseDialog {
     /** Creates new form Internals */
     public Internals(Root root, final Message message)
     {
-        super(root, root.MlM("Detail Info") + ": " + (message.getSubject() != null ? message.getSubject() : root.getAppTitle()) );
+        super(root, root.MlM("Detail info") + ": " + (message.getSubject() != null ? message.getSubject() : root.getAppTitle()) );
 
         initComponents();
 
-        MESSAGE_NOHTML_CODE = MlM("Diese Nachricht enthält keinen HTML Code.");
-        MESSAGE_UNPARSABLE_CODE = MlM("Der HTML Code konnte leider nicht aus dem RTF Code extrahiert werden.");
+        MESSAGE_NOHTML_CODE = MlM("This message does not contain HTML formatted code.");
+        MESSAGE_UNPARSABLE_CODE = MlM("Cannot extract HTML formatted code from RTF coded message.");
 
         jTHeader.setText(message.getHeaders());
         jTHeader.setCaretPosition(0);
@@ -110,7 +110,7 @@ public class Internals extends BaseDialog {
         jTPlain.setRows(5);
         jScrollPane2.setViewportView(jTPlain);
 
-        jTabbedPane1.addTab("Nachrichten Text", jScrollPane2);
+        jTabbedPane1.addTab("Message Text", jScrollPane2);
 
         jTRTF.setColumns(20);
         jTRTF.setRows(5);

@@ -28,7 +28,7 @@ public class BodyActionPopup extends JPopupMenu
     {
         this.mainwin = mainwin;
 
-        JMenuItem menuItem = new JMenuItem(mainwin.MlM("Im Browser öffnen"));
+        JMenuItem menuItem = new JMenuItem(mainwin.MlM("Open by your webbrowser"));
         
         menuItem.addActionListener(new ActionListener() {
 
@@ -60,7 +60,7 @@ public class BodyActionPopup extends JPopupMenu
 
         add(menuItem);
         
-        JMenuItem emlItem = new JMenuItem(mainwin.MlM("Nach EML Konvertieren und mit Standard Mail Client öffnen"));
+        JMenuItem emlItem = new JMenuItem(mainwin.MlM("Convert to EML and open it with your default mail client."));
         
         emlItem.addActionListener(new ActionListener() {
 

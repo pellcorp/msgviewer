@@ -29,13 +29,13 @@ public class NavActionPopup extends JPopupMenu
         this.mainwin = mainwin;        
         
         {
-            JMenu menu_settings = new JMenu(mainwin.MlM("Einstellungen") );
+            JMenu menu_settings = new JMenu(mainwin.MlM("Options") );
             
             add( menu_settings );
             
             // SETTINGS
             {
-                final JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(mainwin.MlM("Größen anzeigen"));
+                final JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(mainwin.MlM("View size"));
                 
                 if( StringUtils.isYes(mainwin.getRoot().getSetup().getLocalConfig(MSGNavigator.SETTING_SHOW_SIZE,"true")) )
                 {
@@ -64,7 +64,7 @@ public class NavActionPopup extends JPopupMenu
             
             // AUTOSAVE
             {
-                final JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(mainwin.MlM("automatisch Speichern"));
+                final JCheckBoxMenuItem menuItem = new JCheckBoxMenuItem(mainwin.MlM("Autosave"));
                 
                 if( StringUtils.isYes(mainwin.getRoot().getSetup().getLocalConfig(MSGNavigator.SETTING_AUTOSAVE,"false")) )
                 {
@@ -90,7 +90,7 @@ public class NavActionPopup extends JPopupMenu
         }
         
         {
-            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Speichern"));
+            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Save"));
 
             menuItem.addActionListener(new ActionListener() {
 
@@ -112,7 +112,7 @@ public class NavActionPopup extends JPopupMenu
         }
 
         {
-            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Element Löschen"));
+            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Delete element"));
 
             menuItem.addActionListener(new ActionListener() {
 
@@ -134,7 +134,7 @@ public class NavActionPopup extends JPopupMenu
         }
         
         {
-            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Element inspizieren"));
+            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Inspect element"));
 
             menuItem.addActionListener(new ActionListener() {
 
@@ -156,7 +156,7 @@ public class NavActionPopup extends JPopupMenu
         }        
         
        {
-            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Element editieren"));
+            JMenuItem menuItem = new JMenuItem(mainwin.MlM("Edit element"));
 
             menuItem.addActionListener(new ActionListener() {
 
