@@ -16,6 +16,6 @@ public class LocalHelpWin extends HelpWin {
 
     public LocalHelpWin( Root root, String Module )
     {
-        super( root, "/at/redeye/MSGViewer/resources/Help/", Module );
+        super( root, "/net/sourceforge/MSGViewer/resources/Help/", Module );
     }
 }

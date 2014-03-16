@@ -36,7 +36,7 @@ public class Plugin implements at.redeye.FrameWork.Plugin.Plugin
             public void do_stuff() throws Exception {
                 HelpFileLoader helper = new HelpFileLoader();
 
-                String licence = helper.loadHelp("/at/redeye/MSGViewer/Plugins/javamail", "oracle");
+                String licence = helper.loadHelp("/net/sourceforge/MSGViewer/Plugins/javamail", "oracle");
                 builder.append(licence);
             }
         };
@@ -73,7 +73,7 @@ public class Plugin implements at.redeye.FrameWork.Plugin.Plugin
             public void do_stuff() throws Exception {
                 HelpFileLoader helper = new HelpFileLoader();
 
-                String changelog = helper.loadHelp("/at/redeye/MSGViewer/Plugins/javamail", "ChangeLog");
+                String changelog = helper.loadHelp("/net/sourceforge/MSGViewer/Plugins/javamail", "ChangeLog");
                 builder.append(changelog);
             }
         };

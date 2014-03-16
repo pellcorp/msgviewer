@@ -26,7 +26,7 @@ public class AppConfigDefinitions extends BaseAppConfigDefinitions {
 
         addLocal(IconSize);        
 
-        GlobalConfigDefinitions.add_help_path("/at/redeye/FindDup/resources/Help/Params/");
-        LocalConfigDefinitions.add_help_path("/at/redeye/FindDup/resources/Help/Params/");
+        GlobalConfigDefinitions.add_help_path("/net/souceforge/MSGViewer/resources/Help/Params/");
+        LocalConfigDefinitions.add_help_path("/net/souceforge/MSGViewer/resources/Help/Params/");
     }    
 }
