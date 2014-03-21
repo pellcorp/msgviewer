@@ -13,8 +13,6 @@ package net.sourceforge.MSGViewer;
 
 import at.redeye.FrameWork.Plugin.AboutPlugins;
 import at.redeye.FrameWork.base.*;
-import at.redeye.FrameWork.base.desktoplauncher.DesktopLauncher;
-import at.redeye.FrameWork.base.desktoplauncher.DesktopLauncher2;
 import at.redeye.FrameWork.base.imagestorage.ImageUtils;
 import at.redeye.FrameWork.base.prm.impl.gui.LocalConfig;
 import at.redeye.FrameWork.utilities.DeleteDir;
@@ -149,11 +147,11 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                     jMNavActionPerformed(null);
             }
         });        
-    }
-
+    }   
+    
     @Override
     public String getUniqueDialogIdentifier(Object requester)
-    {    
+    {                                              
         /*
          * dadurch können wir später den Titel ändern, ohne das sich dadurch
          * die Dialog ID verändert.
