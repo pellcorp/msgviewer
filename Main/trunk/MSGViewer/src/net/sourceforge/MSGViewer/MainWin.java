@@ -15,10 +15,8 @@ import at.redeye.FrameWork.Plugin.AboutPlugins;
 import at.redeye.FrameWork.base.*;
 import at.redeye.FrameWork.base.imagestorage.ImageUtils;
 import at.redeye.FrameWork.base.prm.impl.gui.LocalConfig;
-import at.redeye.FrameWork.utilities.DeleteDir;
 import at.redeye.FrameWork.utilities.ReadFile;
 import at.redeye.FrameWork.utilities.StringUtils;
-import at.redeye.FrameWork.utilities.TempDir;
 import net.sourceforge.MSGViewer.MSGNavigator.MSGNavigator;
 import net.sourceforge.MSGViewer.factory.MessageParserFactory;
 import net.sourceforge.MSGViewer.rtfparser.ParseException;
@@ -51,7 +49,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.EditorKit;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
-import net.htmlparser.jericho.Attributes;
 import net.htmlparser.jericho.Source;
 import net.htmlparser.jericho.StartTag;
 
@@ -59,15 +56,15 @@ import net.htmlparser.jericho.StartTag;
  *
  * @author martin
  */
-public class MainWin extends BaseDialog implements HyperlinkListener
+public class MainWin extends BaseDialog implements HyperlinkListener, MainDialog
 {
-    private Message message;
-    private File tmp_dir;
-    boolean delete_tmp_dir = false;
+
+    private Message message;        
     private String file_name;
     private String dialog_id;    
     private MessageParserFactory parser_factory = new MessageParserFactory();
     private String bodyText = null;
+    private ViewerHelper helper = null;
 
     private static String last_path = null;        
     
@@ -83,15 +80,10 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         super(root, file_name != null ? (root.MlM(root.getAppTitle()) + ": " + file_name) : root.getAppTitle() );
 
         this.file_name = file_name;
+        
+        helper = new ViewerHelper(root);
 
         initComponents();
-
-        try {
-           tmp_dir = TempDir.getTempDir(null, null);
-           delete_tmp_dir = true;
-        } catch (IOException ex) {
-           tmp_dir = new File(System.getProperty("java.io.tmpdir") + "/" + root.getAppName());
-        }
         
         header.addHyperlinkListener(this);
         body.addHyperlinkListener(this);
@@ -153,8 +145,9 @@ public class MainWin extends BaseDialog implements HyperlinkListener
     public String getUniqueDialogIdentifier(Object requester)
     {                                              
         /*
-         * dadurch können wir später den Titel ändern, ohne das sich dadurch
-         * die Dialog ID verändert.
+         * This way the title of the dialog won't change the id, of the dialog.
+         * The id of the dialog is used for saveing with height and position of
+         * the dialog
          */
         if( dialog_id == null )
          dialog_id = super.getUniqueDialogIdentifier(requester);
@@ -180,9 +173,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         root.getSetup().setLocalConfig("FixedFont", JCBfix.isSelected() ? "yes" : "no");
         root.getSetup().setLocalConfig("DividerLocation", String.valueOf(jSplitPane.getDividerLocation()));
 
-
-        if( delete_tmp_dir && tmp_dir.exists() )
-            DeleteDir.deleteDirectory(tmp_dir);
+        helper.dispose();
 
         super.close();
     }
@@ -207,36 +198,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         setNormalCursor();
     }
 
-    static boolean is_image_mime_type( String mime )
-    {
-        if( mime.equals("image/jpeg") )
-            return true;
-        else if( mime.equals("image/gif") )
-            return true;
-        else if( mime.equals("image/png") )
-            return true;
-
-        return false;
-    }
-    
-    static boolean is_mail_message( String file_name )
-    {
-        if( file_name.toLowerCase().endsWith(".mbox") )
-            return true;
-        
-        if( file_name.toLowerCase().endsWith(".msg") )
-            return true;        
-        
-        return false;
-    }    
-    
-    static boolean is_mail_message( String file_name, String mime )
-    {
-        if( is_mail_message( file_name ) ) 
-            return true;
-        
-        return false;
-    }
+ 
 
     void parse_int(final String file_name) throws IOException, FileNotFoundException, Exception
     {
@@ -357,9 +319,9 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                 logger.info(fatt.toString() + " " + mime_type);
 
 
-                if( mime_type != null && is_image_mime_type(mime_type) && fatt.getSize() < 1024*1024*2 )
+                if( mime_type != null && helper.is_image_mime_type(mime_type) && fatt.getSize() < 1024*1024*2 )
                 {
-                    File message_dir = tmp_dir;
+                    File message_dir = helper.getTmpDir();
 
                     if( !message_dir.isDirectory() && !message_dir.mkdirs() )
                     {
@@ -449,9 +411,9 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                     }
                 }
                 
-                if( is_mail_message(fatt.getFilename(), fatt.getMimeTag() ) ) {
+                if( helper.is_mail_message(fatt.getFilename(), fatt.getMimeTag() ) ) {
                     sb.append("<img border=0 align=\"baseline\" src=\"file:");
-                    sb.append(getMailIconName(tmp_dir));
+                    sb.append(helper.getMailIconName(helper.getTmpDir()));
                     sb.append("\"/>");
                 }
                 
@@ -467,7 +429,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                 MsgAttachment msgAtt = (MsgAttachment) att;
                 final Message msg = msgAtt.getMessage();                                
                 
-                File message_dir = tmp_dir;
+                File message_dir = helper.getTmpDir();
 
                 if( !message_dir.isDirectory() && !message_dir.mkdirs() )
                 {
@@ -502,7 +464,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                     sb.append("\">");     
                 
                     sb.append("<img border=0 align=\"baseline\" src=\"file:");
-                    sb.append(getMailIconName(tmp_dir));
+                    sb.append(helper.getMailIconName(helper.getTmpDir()));
                     sb.append("\"/>");
                     
                     sb.append(msg.getSubject());
@@ -547,20 +509,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         }
     }
     
-    private String getMailIconName( File tmp_dir ) throws IOException
-    {
-        File file = new File(tmp_dir + "/mail.png");
-        
-        if( file.exists() )
-            return file.toString();
-        
-        byte bytes[] = ReadFile.getBytesResource(this.getClass(), "/net/sourceforge/MSGViewer/resources/icons/rg1024_yellow_mail.png");
-        FileOutputStream writer = new FileOutputStream(file);        
-        writer.write(bytes);
-        writer.close();
-        
-        return file.toString();
-    }
+    
 
     private void updateBody()
     {
@@ -586,7 +535,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                             logger.trace("\n" + StringUtils.addLineNumbers(message.getBodyRTF()));
                         }
 
-                        bodyText = extractHTMLFromRTF(message.getBodyRTF());
+                        bodyText = helper.extractHTMLFromRTF(message.getBodyRTF(),message);
                         
                         logger.trace(bodyText);
                         // System.out.println("\n\n");
@@ -606,9 +555,9 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             {
                 body.setContentType("text/html");
                 
-                PrepareImages prep_images = new PrepareImages(tmp_dir.getPath(), message);
+                PrepareImages prep_images = new PrepareImages(helper.getTmpDir().getPath(), message);
 
-                String html = prep_images.prepareImages(new StringBuilder(stripMetaTags(message.getBodyRTF()))).toString();                
+                String html = prep_images.prepareImages(new StringBuilder(ViewerHelper.stripMetaTags(message.getBodyRTF()))).toString();                
                 bodyText = html;
                 body.setText(html);  
             }
@@ -657,7 +606,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                 logger.error(StringUtils.exceptionToString(ex));
             }
 */
-            sb.append(prepareText(text));
+            sb.append(helper.prepareText(text));
 
             sb.append("</pre>");
             sb.append("</body></html>");
@@ -670,39 +619,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         body.setCaretPosition(0);
     }
     
-    private String stripMetaTags(String html )
-    {
-       html =  html.replaceAll("<[Mm][eE][Tt][aA]\\s.*>", "");
-       
-       StringBuilder body_text = new StringBuilder(html);
-       Source source = new Source(html);
-       source.fullSequentialParse();
-       
-       for( StartTag tag : source.getAllStartTags("font") )
-       {
-            // remove size="x"
-            Attributes atts = tag.getAttributes();
-           if( atts == null )
-               continue;   
-           
-           net.htmlparser.jericho.Attribute att = atts.get("size");
-           
-           if( att != null )
-           {
-               int start = att.getBegin();
-               int end = att.getEnd();
-               
-               for( int i = start; i < end+1; i++ )
-               {
-                body_text.setCharAt(i, ' ');
-               }
-           }
-       }
-       
-       System.out.println(body_text.toString());
-       
-       return body_text.toString();
-    }
+
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1140,50 +1057,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         };
     }
 
-    public File extractUrl(URL url) throws IOException
-    {
-        List<Attachment> attachments = message.getAttachments();
-
-        for( Attachment att : attachments )
-        {
-            //System.out.println(att.getClass().getName());
-            if( att instanceof FileAttachment)
-            {
-                FileAttachment fatt = (FileAttachment) att;
-
-                String att_file_name = "file://" + fatt.toString();
-
-                // logger.info("file " + fatt);
-
-                if( att_file_name.equals(url.toString()) )
-                {
-                    logger.info("opening " + fatt);
-
-                    File message_dir = tmp_dir;
-
-                    if( !message_dir.isDirectory() && !message_dir.mkdirs() )
-                    {
-                        throw new RuntimeException( "Cannot create tmp dir: " + message_dir.getPath() );
-                    }
-
-                    File content = new File( message_dir + "/" + fatt.toString() );
-
-                    if( !content.exists() )
-                    {
-                        FileOutputStream fout = new FileOutputStream(content);
-
-                        fout.write(fatt.getData());
-
-                        fout.close();
-                    }
-
-                    return content;
-                }
-            }
-        }
-
-        return null;
-    }    
+   
    
    public void openUrl(URL url) throws IOException
     {       
@@ -1201,7 +1075,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                 logger.debug("shell exec returned: " + ret);
             } else {
 
-                String open_command = getOpenCommand();
+                String open_command = helper.getOpenCommand();
 
                 String command = open_command + " \"" + url.toString() + "\"";
                 logger.info(command);
@@ -1216,7 +1090,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             return;
         }
 
-        File content = extractUrl(url);
+        File content = helper.extractUrl(url,message);
 
         if( content == null )
         {
@@ -1224,7 +1098,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             content = new File(url.getFile());
         }
 
-        if( is_mail_message(content.toString() ) ) {
+        if( helper.is_mail_message(content.toString() ) ) {
             MainWin win = new MainWin(root,content.toString());
             
             if( !menubar.isVisible() )
@@ -1241,7 +1115,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
                 int ret = shell.execute(content.getPath());
                 logger.debug("shell exec returned: " + ret);
             } else {
-                String open_command = getOpenCommand();
+                String open_command = helper.getOpenCommand();
 
                 String command = open_command + " \"" + content.getPath() + "\"";
                 logger.info(command);
@@ -1255,15 +1129,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             }
         }
 
-    }
-
-    private String getOpenCommand()
-    {
-        if( Setup.is_win_system() )
-            return "explorer";
-
-        return root.getSetup().getLocalConfig(FrameWorkConfigDefinitions.OpenCommand);
-    }
+    }    
 
     void loadMessage(String file_name)
     {
@@ -1296,79 +1162,7 @@ public class MainWin extends BaseDialog implements HyperlinkListener
             invokeMainDialog( win );
         }
     }
-
-    String prepareText( String s )
-    {
-        if( s == null )
-            return "";
-        
-        StringBuilder sb = new StringBuilder();
-
-        s = s.replaceAll("<", "&lt;");
-        s = s.replaceAll(">", "&gt;");
-
-        int start = 0;
-        int last_start = 0;
-
-        while( true )
-        {
-            start = s.indexOf("http://", last_start);
-
-            if( start == -1 )
-            {
-                sb.append(s.substring(last_start));
-                break;
-            }
-
-            logger.info("last_start: " + last_start + " start: " + start + " length: " + s.length() );
-
-            sb.append(s.substring(last_start, start));
-            last_start = start;
-
-            sb.append("<a href=\"");
-
-            int i;
-
-            for( i = start; i < s.length(); i++ )
-            {
-              if( s.indexOf("&gt;",i ) == i )
-                  break;
-
-              char c = s.charAt(i);
-
-              if( StringUtils.is_space(c) )
-              {
-                  break;
-              }
-              sb.append(c);
-            }
-
-            sb.append("\">");
-            sb.append(s.substring(start,i-1));
-            sb.append("</a>");
-
-            last_start = i;
-        }
-
-        return sb.toString();
-    }
-
-    private String extractHTMLFromRTF(String bodyText) throws ParseException
-    {
-        if( bodyText.contains("\\purehtml") )
-            return bodyText;
-        
-        HtmlFromRtf rtf2html = new HtmlFromRtf(bodyText);
-
-        String html = rtf2html.getHTML();
-        
-        html = stripMetaTags(html);
-
-        PrepareImages prep_images = new PrepareImages(tmp_dir.getPath(), message);
-
-        return prep_images.prepareImages(new StringBuilder(html)).toString();
-    }
-
+    
     public String getLastOpenPath()
     {
         return last_path;
@@ -1381,12 +1175,12 @@ public class MainWin extends BaseDialog implements HyperlinkListener
 
     public String getHTMLCode() throws ParseException
     {
-        return extractHTMLFromRTF(message.getBodyRTF());
+        return helper.extractHTMLFromRTF(message.getBodyRTF(), message);
     }
 
     public File getMailDirectory()
     {
-        return tmp_dir;
+        return helper.getTmpDir();
     }
 
     private void exportFile(Message message, File file) throws FileNotFoundException, Exception 
@@ -1404,8 +1198,18 @@ public class MainWin extends BaseDialog implements HyperlinkListener
         parser_factory.saveMessage(message, file);
     }       
 
-    void hideMenuBar() {
+    @Override
+    public void hideMenuBar() {
        menubar.setVisible(false);
     }
 
+
+    public ViewerHelper getHelper() {
+        return helper;
+    }    
+
+    File extractUrl(URL url) throws IOException {
+        return helper.extractUrl(url, message);
+    }
+    
 }

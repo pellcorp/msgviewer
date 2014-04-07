@@ -173,7 +173,7 @@ public class PrepareImages {
                 logger.info(fatt.toString() + " " + mime_type);
 
 
-                if( mime_type != null && MainWin.is_image_mime_type(mime_type) ) {
+                if( mime_type != null && ViewerHelper.is_image_mime_type(mime_type) ) {
                     attached_images.add(fatt);
                 }
             }
