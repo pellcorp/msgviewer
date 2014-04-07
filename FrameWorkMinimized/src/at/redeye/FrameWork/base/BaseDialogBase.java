@@ -236,4 +236,10 @@ public interface BaseDialogBase
      * @since     JDK1.1
      */
     public Dimension getMinimumSize();
+    
+    public void setWaitCursor();
+    
+    public void setWaitCursor(boolean state);
+    
+    public void setNormalCursor();
 }
