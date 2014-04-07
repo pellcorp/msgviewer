@@ -5,6 +5,7 @@
 
 package net.sourceforge.MSGViewer;
 
+import at.redeye.FrameWork.base.BaseDialog;
 import at.redeye.FrameWork.base.BaseModuleLauncher;
 import at.redeye.FrameWork.base.FrameWorkConfigDefinitions;
 import at.redeye.FrameWork.base.LocalRoot;
@@ -20,7 +21,7 @@ public class ModuleLauncher extends BaseModuleLauncher
 {       
     private static final String CONFIG_LAST_UPDATE = "lastupdate";
     
-    MainWin mainwin;
+    MainDialog mainwin;
 
     public ModuleLauncher( String[] args )
     {
@@ -101,7 +102,14 @@ public class ModuleLauncher extends BaseModuleLauncher
         {
             if( arg.toLowerCase().endsWith(".msg") || arg.toLowerCase().endsWith(".mbox"))
             {
-                MainWin win = new MainWin(root, arg);
+                MainDialog win = null;
+                
+                if( getStartupFlag("-mainwin") ) {                
+                    win = new MainWin(root, arg);
+                } else {
+                    win = new SingleWin(root, arg);
+                }
+                
 
                 if( mainwin == null )
                 {
@@ -117,8 +125,13 @@ public class ModuleLauncher extends BaseModuleLauncher
             }
         }
         
-        if( mainwin == null )
-            mainwin = new MainWin(root,null);        
+        if( mainwin == null ) {
+            if (getStartupFlag("-mainwin")) {
+                mainwin = new MainWin(root, null);
+            } else {
+                mainwin = new SingleWin(root, null);
+            }             
+        } 
 
         if( getStartupFlag("-hidemenubar") ) {
             mainwin.hideMenuBar();  
@@ -127,36 +140,6 @@ public class ModuleLauncher extends BaseModuleLauncher
         
         closeSplash();        
         mainwin.setVisible(true);
-
-        /*
-        if( !getStartupFlag("-noautoupdate") ) {
-            
-            long lastupdate = Long.valueOf(root.getSetup().getLocalConfig(CONFIG_LAST_UPDATE,"0"));
-            
-            if (lastupdate < System.currentTimeMillis()) {
-                
-                logger.info("Last update was at: " + lastupdate + " now " + System.currentTimeMillis());
-                
-                root.getSetup().setLocalConfig(CONFIG_LAST_UPDATE, 
-                        String.valueOf(System.currentTimeMillis() + 1000*60*60*24*7*4));
-                root.getSetup().saveConfig();
-
-                updateJnlp2();
-            }
-        }
-        */
-
-        /*
-        if (Setup.is_linux_system()) {
-            new Thread() {
-
-                @Override
-                public void run() {
-                    extractScripts();
-                }
-            }.start();
-        }
-        */
         
     }
 
@@ -171,66 +154,10 @@ public class ModuleLauncher extends BaseModuleLauncher
        return false;
     }
     
-    /*
-    void extractScripts() {
+    public static void main(String[] args) {
 
-        String scripts[] = {"msg2mbox", "msgviewer", "mbox2msg"};
+        new ModuleLauncher(args).invoke();
 
-        String exec_path = System.getProperty("user.home");
-
-        if (exec_path == null | exec_path.isEmpty()) {
-            return;
-        }
-        
-        File user_home_path = new File(exec_path);
-        
-        if( !user_home_path.exists() )
-            return;              
-
-        exec_path += "/bin";
-        
-
-        user_home_path = new File(exec_path);
-        if( !user_home_path.exists() )
-            return;    
-
-        for (String script : scripts) {
-            File script_file = new File(exec_path + "/" + script);
-
-            if (!script_file.exists()) {
-                InputStream stream = getClass().getResourceAsStream("/at/redeye/MSGViewer/resources/scripts/" + script);
-
-                if (stream == null) {
-                    logger.error("Cannot load RedeyeStarter ");
-                    continue;
-                }
-
-                try {
-
-                    OutputStream out = new FileOutputStream(script_file);
-
-                    BufferedInputStream bis = new BufferedInputStream(stream);
-
-                    byte[] buf = new byte[1024 * 4];
-                    int len;
-
-                    while ((len = bis.read(buf)) > 0) {
-                        out.write(buf, 0, len);
-                    }
-
-                    out.close();
-                    bis.close();
-                    stream.close();
-                    
-                    script_file.setExecutable(true);
-
-                } catch (Exception ex) {
-
-                    logger.error(ex);
-                }
-            }
-        }
-    }
-    */
+    }   
     
 }
