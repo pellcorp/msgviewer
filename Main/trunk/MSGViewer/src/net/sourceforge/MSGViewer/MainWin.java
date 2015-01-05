@@ -56,7 +56,7 @@ import net.htmlparser.jericho.StartTag;
  *
  * @author martin
  */
-public class MainWin extends BaseDialog implements HyperlinkListener, MainDialog
+public class MainWin extends BaseDialog implements HyperlinkListener, MainDialog, LoadMessageInterface
 {
 
     private Message message;        
@@ -1131,7 +1131,8 @@ public class MainWin extends BaseDialog implements HyperlinkListener, MainDialog
 
     }    
 
-    void loadMessage(String file_name)
+    @Override
+    public void loadMessage(String file_name)
     {
         logger.info("filename: " + file_name);
 

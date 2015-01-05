@@ -28,7 +28,7 @@ import net.sourceforge.MSGViewer.MSGNavigator.MSGNavigator;
  *
  * @author martin
  */
-public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInterface {
+public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInterface, LoadMessageInterface {
 
     private static String last_path = null;   
     private String dialog_id;    
@@ -62,6 +62,8 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
                     viewerPanel.parse(file_name);
                 }
             });
+        } else {
+            viewerPanel.getHeaderPane().setText(MlM("Drag a msg file into this window") );
         }
         
         
@@ -72,7 +74,10 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
                 if( jMNav.isEnabled() )
                     jMNavActionPerformed(null);
             }
-        });           
+        });      
+        
+        new EditorDropTarget(this,viewerPanel.getHeaderPane());
+        new EditorDropTarget(this,viewerPanel.getBodyPane());        
     }
 
     @Override
@@ -172,6 +177,7 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
         jMenu4.add(jMenuItem5);
 
         jMNav.setText("MSG Navigator");
+        jMNav.setEnabled(false);
         jMNav.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMNavActionPerformed(evt);
@@ -328,7 +334,8 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
     }//GEN-LAST:event_jMNavActionPerformed
     
     
-    void loadMessage(String file_name)
+    @Override
+    public void loadMessage(String file_name)
     {
         logger.info("filename: " + file_name);
 
