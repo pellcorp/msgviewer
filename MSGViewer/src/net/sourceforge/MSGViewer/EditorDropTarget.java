@@ -42,9 +42,9 @@ public class EditorDropTarget implements DropTargetListener
     private final Color backgroundColor;
     private boolean changingBackground;
 
-    MainWin main_win;
+    LoadMessageInterface main_win;
 
-    public EditorDropTarget( MainWin main_win, JEditorPane pane )
+    public EditorDropTarget( LoadMessageInterface main_win, JEditorPane pane )
     {
         this.pane = pane;
         this.main_win = main_win;
@@ -56,7 +56,10 @@ public class EditorDropTarget implements DropTargetListener
        dropTarget = new DropTarget(pane, DnDConstants.ACTION_COPY_OR_MOVE, this, true, null);
     }
 
+    @Override
     public void dragEnter(DropTargetDragEvent dtde) {
+        
+        logger.debug("dragEnter");
 
         // Get the type of object being transferred and determine
         // whether it is appropriate.
@@ -69,8 +72,11 @@ public class EditorDropTarget implements DropTargetListener
         dragUnderFeedback(dtde, acceptedDrag);
     }
 
+    @Override
     public void dragOver(DropTargetDragEvent dtde) {
 
+        
+        logger.debug("dragOver");
         // Accept or reject the drag
         boolean acceptedDrag = acceptOrRejectDrag(dtde);
 
@@ -78,8 +84,11 @@ public class EditorDropTarget implements DropTargetListener
         dragUnderFeedback(dtde, acceptedDrag);
     }
 
+    @Override
     public void dropActionChanged(DropTargetDragEvent dtde) {
 
+        logger.debug("dropActionChanged");
+        
         // Accept or reject the drag
         boolean acceptedDrag = acceptOrRejectDrag(dtde);
 
@@ -87,13 +96,19 @@ public class EditorDropTarget implements DropTargetListener
         dragUnderFeedback(dtde, acceptedDrag);
     }
 
+    @Override
     public void dragExit(DropTargetEvent dte) {
 
+        logger.debug("dragExit");
          // Do drag-under feedback
         dragUnderFeedback(null, false);
     }
 
+    @Override
     public void drop(DropTargetDropEvent dtde) {
+        
+        logger.debug("drop");
+        
           // Check the drop action
     if ((dtde.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) != 0) {
       // Accept the drop and get the transfer data

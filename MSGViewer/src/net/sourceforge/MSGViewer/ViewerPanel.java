@@ -34,6 +34,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.EditorKit;
@@ -895,4 +896,12 @@ public class ViewerPanel extends javax.swing.JPanel implements HyperlinkListener
     {
         return file_name;              
     }
+    
+    public JEditorPane getHeaderPane() {
+        return header;
+    }
+    
+    public JEditorPane getBodyPane() {
+        return body;
+    }    
 }

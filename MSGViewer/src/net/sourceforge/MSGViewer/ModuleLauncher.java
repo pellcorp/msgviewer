@@ -5,7 +5,6 @@
 
 package net.sourceforge.MSGViewer;
 
-import at.redeye.FrameWork.base.BaseDialog;
 import at.redeye.FrameWork.base.BaseModuleLauncher;
 import at.redeye.FrameWork.base.FrameWorkConfigDefinitions;
 import at.redeye.FrameWork.base.LocalRoot;
