@@ -1,5 +1,5 @@
 Name:           MSGViewer
-Version:        1.6
+Version:        1.7
 Release:        1%{?dist}
 Summary:        Display Outlook MSG Files
 Group:          Desktop
