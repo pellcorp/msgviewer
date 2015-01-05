@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -435,7 +436,7 @@ public class ViewerPanel extends javax.swing.JPanel implements HyperlinkListener
     }   
     
     public void openUrl(URL url) throws IOException
-    {       
+    {               
         logger.info(url);
 
         final String protocoll = url.getProtocol();
@@ -651,14 +652,16 @@ public class ViewerPanel extends javax.swing.JPanel implements HyperlinkListener
             if( att instanceof FileAttachment)
             {
                 final FileAttachment fatt = (FileAttachment) att;
+                               
+                String encoded_file_name = URLEncoder.encode(fatt.toString(),"utf-8");
                 
                 sb.append("<a href=\"file://");
-                sb.append(fatt.toString());
+                sb.append(encoded_file_name); 
                 sb.append("\">");                         
 
                 String mime_type = fatt.getMimeTag();
 
-                logger.info(fatt.toString() + " " + mime_type);
+                logger.info("<a href=\"file://" + encoded_file_name + "\"> " + mime_type);
 
 
                 if( mime_type != null && helper.is_image_mime_type(mime_type) && fatt.getSize() < 1024*1024*2 )
