@@ -26,6 +26,7 @@ import com.auxilii.msgparser.attachment.FileAttachment;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import net.sourceforge.MSGViewer.factory.MessageParserFactory;
 
@@ -232,7 +233,7 @@ public class ViewerHelper {
             {
                 FileAttachment fatt = (FileAttachment) att;
 
-                String att_file_name = "file://" + fatt.toString();
+                String att_file_name = "file://" + URLEncoder.encode(fatt.toString(),"utf-8");
 
                 // logger.info("file " + fatt);
 

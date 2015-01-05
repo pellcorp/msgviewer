@@ -13,11 +13,9 @@ import static at.redeye.FrameWork.base.BaseDialog.logger;
 import at.redeye.FrameWork.base.Root;
 import at.redeye.FrameWork.base.prm.impl.gui.LocalConfig;
 import at.redeye.FrameWork.utilities.StringUtils;
-import com.auxilii.msgparser.Message;
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.swing.JFileChooser;
@@ -30,7 +28,7 @@ import net.sourceforge.MSGViewer.MSGNavigator.MSGNavigator;
  *
  * @author martin
  */
-public class SingleWin extends BaseDialog implements MainDialog {
+public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInterface {
 
     private static String last_path = null;   
     private String dialog_id;    
@@ -46,6 +44,7 @@ public class SingleWin extends BaseDialog implements MainDialog {
         last_path = root.getSetup().getLocalConfig("LastPath","");
         
         viewerPanel.setRoot(root, this);
+        viewerPanel.setopenNewMailInterface(this);
         
         if( file_name != null )
         {
@@ -369,6 +368,18 @@ public class SingleWin extends BaseDialog implements MainDialog {
     }
     
     @Override
+    public void openMail(Root root, String file) 
+    {
+        SingleWin win = new SingleWin(root, file);
+
+        if (!menubar.isVisible()) {
+            win.hideMenuBar();
+        }
+
+        invokeDialog(win);
+    }    
+    
+    @Override
     public void hideMenuBar() {
        menubar.setVisible(false);
     }    
@@ -389,4 +400,5 @@ public class SingleWin extends BaseDialog implements MainDialog {
     private javax.swing.JMenuBar menubar;
     private net.sourceforge.MSGViewer.ViewerPanel viewerPanel;
     // End of variables declaration//GEN-END:variables
+
 }

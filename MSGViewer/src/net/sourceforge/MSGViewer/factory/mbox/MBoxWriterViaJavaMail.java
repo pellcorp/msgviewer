@@ -93,14 +93,21 @@ public class MBoxWriterViaJavaMail
          {
              MimeBodyPart plain_text = new MimeBodyPart();
              String plain_text_string = msg.getBodyText();
-             plain_text.setText(plain_text_string);
+
+             if (plain_text_string != null) {
+                 plain_text.setText(plain_text_string);
+             } else {
+                 plain_text.setText("");
+             }
+             
              mp_alternate.addBodyPart(plain_text);
 
              mp_text_alternate.setContent(mp_alternate);
              MimeBodyPart part = new MimeBodyPart();
              part.setContent(mp_alternate);
-             
+
              mp.addBodyPart(part);
+             
          }
          
          for( Attachment att : msg.getAttachments() )
