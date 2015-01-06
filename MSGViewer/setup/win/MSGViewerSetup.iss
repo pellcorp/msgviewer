@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MSGViewer"
-#define MyAppVersion "1.6"
+#define MyAppVersion "1.7"
 #define MyAppPublisher "Redeye Labs"
 #define MyAppURL "https://sourceforge.net/p/msgviewer"
 #define MyAppExeName "MSGViewer.jar"
