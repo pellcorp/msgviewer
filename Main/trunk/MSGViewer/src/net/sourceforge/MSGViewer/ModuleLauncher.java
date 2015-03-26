@@ -39,11 +39,18 @@ public class ModuleLauncher extends BaseModuleLauncher
 
     public void invoke()
     {
-       if( getStartupFlag("-msg2mbox") )
+       CLIFileConverter converter = null;
+       if( getStartupFlag(Msg2MBox.CLI_PARAMETER))
        {
-           invokeMSG2MBox();
-       } else if( getStartupFlag("-mbox2msg") ) {
-           invokeMBox2MSG();
+           converter = new Msg2MBox(this);
+       } else if( getStartupFlag(MBox2Msg.CLI_PARAMETER)) {
+           converter = new MBox2Msg(this);
+       } else if( getStartupFlag(Msg2Eml.CLI_PARAMETER)) {
+           converter = new Msg2Eml(this);
+       }
+
+       if (converter != null) {
+           converter.work();
        } else {
            invokeGui();
        }
@@ -53,22 +60,6 @@ public class ModuleLauncher extends BaseModuleLauncher
     public String getVersion() {
         return Version.getVersion();
     }
-    
-    public void invokeMSG2MBox()
-    {
-        Msg2MBox converter = new Msg2MBox(this);
-        
-        converter.work();
-    }
-    
-    
-    public void invokeMBox2MSG()
-    {
-        MBox2Msg converter = new MBox2Msg(this);
-        
-        converter.work();
-    }
-    
     
     public void invokeGui()
     {
