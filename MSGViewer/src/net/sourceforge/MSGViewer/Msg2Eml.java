@@ -8,11 +8,11 @@ package net.sourceforge.MSGViewer;
  *
  * @author martin
  */
-public class MBox2Msg extends CLIFileConverter {
-	public static final String CLI_PARAMETER = "-mbox2msg";
+public class Msg2Eml extends CLIFileConverter {
+	public static final String CLI_PARAMETER = "-msg2eml";
 
-	public MBox2Msg(ModuleLauncher module_launcher) {
-		super(module_launcher, "mbox", "msg");
+	public Msg2Eml(ModuleLauncher module_launcher) {
+		super(module_launcher, "msg", "eml");
 	}
 
 	@Override
