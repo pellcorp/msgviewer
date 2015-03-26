@@ -1,6 +1,6 @@
 Name:           MSGViewer
-Version:        1.7
-Release:        2%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 Summary:        Display Outlook MSG Files
 Group:          Desktop
 License:        GPLv3
@@ -13,6 +13,8 @@ Requires:          java
 %description
 MsgViewer is email-viewer utility for .msg e-mail messages.
 
+%define _binary_payload w9.gzdio
+
 %prep
 %setup -q -n %{name}
 
@@ -22,12 +24,14 @@ MsgViewer is email-viewer utility for .msg e-mail messages.
 ln -s -f /opt/%{name}/%{name} /usr/bin/%{name}
 ln -s -f /opt/%{name}/%{name} /usr/bin/msgviewer
 ln -s -f /opt/%{name}/msg2mbox /usr/bin/msg2mbox
+ln -s -f /opt/%{name}/msg2eml /usr/bin/msg2eml
 
 %postun
 if [ $1 -eq 0 ] ; then
 	rm  /usr/bin/%{name}
 	rm  /usr/bin/msgviewer
 	rm  /usr/bin/msg2mbox
+	rm  /usr/bin/msg2eml
 fi
 
 %install
@@ -41,6 +45,7 @@ install -m755 MSGViewer.jar $RPM_BUILD_ROOT/opt/%{name}/%{name}.jar
 install -m644 lib/*.jar $RPM_BUILD_ROOT/opt/%{name}/lib/
 install -m755 %{name} $RPM_BUILD_ROOT/opt/%{name}/%{name}
 install -m755 msg2mbox $RPM_BUILD_ROOT/opt/%{name}/
+install -m755 msg2eml $RPM_BUILD_ROOT/opt/%{name}/
 install -m644 %{name}.desktop $RPM_BUILD_ROOT/usr/share/applications
 install -m644 icon.png $RPM_BUILD_ROOT/opt/%{name}
 
@@ -49,6 +54,7 @@ install -m644 icon.png $RPM_BUILD_ROOT/opt/%{name}
 /opt/%{name}/lib/*.jar
 /opt/%{name}/%{name}
 /opt/%{name}/msg2mbox
+/opt/%{name}/msg2eml
 /opt/%{name}/icon.png
 /usr/share/applications/%{name}.desktop
 

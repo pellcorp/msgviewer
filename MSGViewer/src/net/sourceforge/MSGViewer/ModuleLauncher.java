@@ -17,9 +17,7 @@ import org.apache.log4j.Level;
  * @author martin
  */
 public class ModuleLauncher extends BaseModuleLauncher
-{       
-    private static final String CONFIG_LAST_UPDATE = "lastupdate";
-    
+{           
     MainDialog mainwin;
 
     public ModuleLauncher( String[] args )
@@ -33,12 +31,25 @@ public class ModuleLauncher extends BaseModuleLauncher
         root.setBaseLanguage("en");
         root.setDefaultLanguage("en");
 
-        // root.setWebStartUlr(getWebStartUrl("http://redeye.hoffer.cx/MSGViewer/launch.jnlp"));
         root.setLanguageTranslationResourcePath("/net/sourceforge/MSGViewer/resources/translations");
     }
 
     public void invoke()
-    {
+    {                        
+        if( getStartupFlag(CLIHelpMSGViewer.CLI_HELP))
+        {
+            CLIHelpMSGViewer help = new CLIHelpMSGViewer(this);
+            help.printHelpScreen();
+            return;
+        }
+        
+        if( getStartupFlag(CLIHelpMSGViewer.CLI_VERSION))
+        {
+            CLIHelpMSGViewer help = new CLIHelpMSGViewer(this);
+            help.printVersion();
+            return;
+        }        
+        
        CLIFileConverter converter = null;
        if( getStartupFlag(Msg2MBox.CLI_PARAMETER))
        {
@@ -47,7 +58,7 @@ public class ModuleLauncher extends BaseModuleLauncher
            converter = new MBox2Msg(this);
        } else if( getStartupFlag(Msg2Eml.CLI_PARAMETER)) {
            converter = new Msg2Eml(this);
-       }
+       }              
 
        if (converter != null) {
            converter.work();
@@ -123,7 +134,7 @@ public class ModuleLauncher extends BaseModuleLauncher
             }             
         } 
 
-        if( getStartupFlag("-hidemenubar") ) {
+        if( getStartupFlag(CLIHelpMSGViewer.CLI_HIDEMENUBAR) ) {
             mainwin.hideMenuBar();  
         }        
         
