@@ -116,7 +116,7 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
         viewerPanel = new net.sourceforge.MSGViewer.ViewerPanel();
         menubar = new javax.swing.JMenuBar();
         jMFileOpen = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jFileOpen = new javax.swing.JMenuItem();
         jMFileSave = new javax.swing.JMenuItem();
         jMOptions = new javax.swing.JMenuItem();
         jMQuit = new javax.swing.JMenuItem();
@@ -132,13 +132,13 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
 
         jMFileOpen.setText("Program");
 
-        jMenuItem1.setText("File Open ...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jFileOpen.setText("File Open ...");
+        jFileOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jFileOpenActionPerformed(evt);
             }
         });
-        jMFileOpen.add(jMenuItem1);
+        jMFileOpen.add(jFileOpen);
 
         jMFileSave.setText("Save File as ...");
         jMFileSave.addActionListener(new java.awt.event.ActionListener() {
@@ -242,7 +242,7 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
          invokeDialogUnique(new LocalConfig(root));  
     }//GEN-LAST:event_jMOptionsActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jFileOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileOpenActionPerformed
 
         JFileChooser fc = new JFileChooser();
         
@@ -260,9 +260,10 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
         }
         final File[] files = fc.getSelectedFiles();
         for (File file : files) {
+            last_path = file.getPath();
             loadMessage(file.getPath());
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jFileOpenActionPerformed
 
     private void jMFileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFileSaveActionPerformed
         
@@ -287,6 +288,7 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
             @Override
             public void do_stuff() throws Exception {
                 File export_file = file;
+                last_path = file.getPath();
                 if (!file.getName().toLowerCase().endsWith(".msg") && !file.getName().toLowerCase().endsWith(".eml") && !file.getName().toLowerCase().endsWith(".mbox")) {
                     if (fc.getFileFilter() == msg_filter) {
                         export_file = new File(file.getAbsolutePath() + ".msg");
@@ -392,13 +394,13 @@ public class SingleWin extends BaseDialog implements MainDialog, OpenNewMailInte
     }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jFileOpen;
     private javax.swing.JMenu jMFileOpen;
     private javax.swing.JMenuItem jMFileSave;
     private javax.swing.JMenuItem jMNav;
     private javax.swing.JMenuItem jMOptions;
     private javax.swing.JMenuItem jMQuit;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;

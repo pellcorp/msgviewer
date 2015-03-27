@@ -26,12 +26,13 @@ public class CLIHelpMSGViewer extends CLIHelp
         
         add( new CLIGroupHeader("COMMAND LINE OPTIONS"));
         
-        add( new CLIOption( Msg2MBox.CLI_PARAMETER, "Converts a msg file to a mbox file.") );
-        add( new CLIOption( Msg2Eml.CLI_PARAMETER, "Converts a msg file to a mbox file.") );
-        add( new CLIOption( MBox2Msg.CLI_PARAMETER, "Converts a mbox file to a msg file.",
-                                                    "This feature is in pre alpla state and may never will work." +
-                                                    "It converts a mbox file into a msg file.") );
+        add( new  CLIOption(CLI_VERSION, "Print version and licence informations") );
+        add( new  CLIOption(CLI_HELP, "Print this screen") );
         
+        add( new CLIOption( Msg2MBox.CLI_PARAMETER, "Converts a msg file to a mbox file.") );
+        add( new CLIOption( Msg2Eml.CLI_PARAMETER, "Converts a msg file to an eml file.") );
+        add( new CLIOption( MBox2Msg.CLI_PARAMETER, "Converts a mbox file to a msg file.",
+                                                    "This feature is in pre alpla state and may never will work." ) );                
         
         add( new CLIGroupHeader("GUI OPTIONS"));
         

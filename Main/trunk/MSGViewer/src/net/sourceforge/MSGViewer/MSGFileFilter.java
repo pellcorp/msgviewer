@@ -33,13 +33,15 @@ public class MSGFileFilter extends javax.swing.filechooser.FileFilter
             return true;
         else if( pathname.toString().toLowerCase().endsWith(".mbox"))
             return true;
+        else if( pathname.toString().toLowerCase().endsWith(".eml"))
+            return true;        
 
         return false;            
     }
 
     @Override
     public String getDescription() {
-       return root.MlM("Outlook *.msg, or *.mbox");
+       return root.MlM("Outlook *.msg, or *.mbox, or *.eml");
     }
 
 }
