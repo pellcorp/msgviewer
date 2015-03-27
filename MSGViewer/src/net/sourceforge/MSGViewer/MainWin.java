@@ -15,7 +15,6 @@ import at.redeye.FrameWork.Plugin.AboutPlugins;
 import at.redeye.FrameWork.base.*;
 import at.redeye.FrameWork.base.imagestorage.ImageUtils;
 import at.redeye.FrameWork.base.prm.impl.gui.LocalConfig;
-import at.redeye.FrameWork.utilities.ReadFile;
 import at.redeye.FrameWork.utilities.StringUtils;
 import net.sourceforge.MSGViewer.MSGNavigator.MSGNavigator;
 import net.sourceforge.MSGViewer.factory.MessageParserFactory;
@@ -984,19 +983,74 @@ public class MainWin extends BaseDialog implements HyperlinkListener, MainDialog
 
     private void jMQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMQuitActionPerformed
 
-         close();     }//GEN-LAST:event_jMQuitActionPerformed
+         close();     
+
+    }//GEN-LAST:event_jMQuitActionPerformed
 
     private void jMSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMSettingsActionPerformed
 
-        invokeDialogUnique(new LocalConfig(root));     }//GEN-LAST:event_jMSettingsActionPerformed
+        invokeDialogUnique(new LocalConfig(root));     
+
+    }//GEN-LAST:event_jMSettingsActionPerformed
 
     private void jMSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMSaveAsActionPerformed
 
-         final JFileChooser fc = new JFileChooser();          fc.setAcceptAllFileFilterUsed(false);          final FileFilter msg_filter = new FileNameExtensionFilter(MlM("Outlook *.msg Datei"), "msg");         final FileFilter mbox_filter = new FileNameExtensionFilter(MlM("Unix *.mbox Datei"), "mbox");         final FileFilter eml_filter = new FileNameExtensionFilter(MlM("Thunderbird *.eml Datei"), "eml");          fc.addChoosableFileFilter(msg_filter);         fc.addChoosableFileFilter(mbox_filter);         fc.addChoosableFileFilter(eml_filter);         fc.setMultiSelectionEnabled(false);          if (last_path != null) {             fc.setCurrentDirectory(new File(last_path));         }          int retval = fc.showSaveDialog(this);          if (retval != 0) {             return;         }          final File file = fc.getSelectedFile();          new AutoMBox(this.getClass().getName()) {              @Override             public void do_stuff() throws Exception {                  File export_file = file;                  if (!file.getName().toLowerCase().endsWith(".msg")                         && !file.getName().toLowerCase().endsWith(".eml")                         && !file.getName().toLowerCase().endsWith(".mbox")) {                     if (fc.getFileFilter() == msg_filter) {                         export_file = new File(file.getAbsolutePath() + ".msg");                     } else if (fc.getFileFilter() == eml_filter) {                         export_file = new File(file.getAbsolutePath() + ".eml");                     } else {                         export_file = new File(file.getAbsolutePath() + ".mbox");                     }                 }                  exportFile(message, export_file);             }         };      }//GEN-LAST:event_jMSaveAsActionPerformed
+        final JFileChooser fc = new JFileChooser();
+        fc.setAcceptAllFileFilterUsed(false);
+        final FileFilter msg_filter = new FileNameExtensionFilter(MlM("Outlook *.msg Datei"), "msg");
+        final FileFilter mbox_filter = new FileNameExtensionFilter(MlM("Unix *.mbox Datei"), "mbox");
+        final FileFilter eml_filter = new FileNameExtensionFilter(MlM("Thunderbird *.eml Datei"), "eml");
+        fc.addChoosableFileFilter(msg_filter);
+        fc.addChoosableFileFilter(mbox_filter);
+        fc.addChoosableFileFilter(eml_filter);
+        fc.setMultiSelectionEnabled(false);
+        if (last_path != null) {
+            fc.setCurrentDirectory(new File(last_path));
+        }
+        int retval = fc.showSaveDialog(this);
+        if (retval != 0) {
+            return;
+        }
+        final File file = fc.getSelectedFile();
+        new AutoMBox(this.getClass().getName()) {
+            @Override
+            public void do_stuff() throws Exception {
+                File export_file = file;
+                if (!file.getName().toLowerCase().endsWith(".msg") && !file.getName().toLowerCase().endsWith(".eml") && !file.getName().toLowerCase().endsWith(".mbox")) {
+                    if (fc.getFileFilter() == msg_filter) {
+                        export_file = new File(file.getAbsolutePath() + ".msg");
+                    } else if (fc.getFileFilter() == eml_filter) {
+                        export_file = new File(file.getAbsolutePath() + ".eml");
+                    } else {
+                        export_file = new File(file.getAbsolutePath() + ".mbox");
+                    }
+                }
+                exportFile(message, export_file);
+            }
+        };
+    }//GEN-LAST:event_jMSaveAsActionPerformed
 
     private void jMOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMOpenFileActionPerformed
 
-          JFileChooser fc = new JFileChooser();          fc.setAcceptAllFileFilterUsed(false);         fc.setFileFilter(new MSGFileFilter(root));         fc.setMultiSelectionEnabled(true);          logger.info("last path: " + last_path);          if (last_path != null) {             fc.setCurrentDirectory(new File(last_path));         }          int retval = fc.showOpenDialog(this);          if (retval != 0) {             return;         }          final File[] files = fc.getSelectedFiles();          for (File file : files) {             loadMessage(file.getPath());         }     }//GEN-LAST:event_jMOpenFileActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setFileFilter(new MSGFileFilter(root));
+        fc.setMultiSelectionEnabled(true);
+        logger.info("last path: " + last_path);
+        if (last_path != null) {
+            fc.setCurrentDirectory(new File(last_path));
+        }
+        int retval = fc.showOpenDialog(this);
+        if (retval != 0) {
+            return;
+        }
+        final File[] files = fc.getSelectedFiles();
+        
+        for (File file : files) {
+            loadMessage(file.getPath());
+        }
+
+    }//GEN-LAST:event_jMOpenFileActionPerformed
 
 
 

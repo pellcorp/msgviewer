@@ -6,7 +6,6 @@
 package net.sourceforge.MSGViewer.CLIHelp;
 
 import at.redeye.FrameWork.base.BaseModuleLauncher;
-import at.redeye.FrameWork.base.Root;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +16,7 @@ public class CLIHelp
 {
     private static final int LINE_LEN=80;
     private final ArrayList<CLIOption> options = new ArrayList<>();    
-    private BaseModuleLauncher module_launcher;
+    private final BaseModuleLauncher module_launcher;
     
     public CLIHelp(BaseModuleLauncher module_launcher)
     {
@@ -50,7 +49,7 @@ public class CLIHelp
     public void printVersion()
     {
         System.out.println( module_launcher.root.getAppName() + " - " + module_launcher.root.getAppTitle() );
-        System.out.println( "Version: " + module_launcher.getVersion() + "\n");        
+        System.out.println( "Version: " + module_launcher.getVersion() + "\n");           
     }
     
     private int getMaxOptionLen()

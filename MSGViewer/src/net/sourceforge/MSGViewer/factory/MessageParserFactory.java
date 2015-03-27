@@ -43,6 +43,8 @@ public class MessageParserFactory
             return parseMsgFile( file );
         } else if( suffix.equals("mbox") ) {
             return paserJavaMailFile( file );
+        } else if( suffix.equals("eml") ) {
+            return paserJavaMailFile( file );
         }
          
         return null;
@@ -87,7 +89,7 @@ public class MessageParserFactory
         } else if( suffix.equals("mbox") ) {
             saveMBoxFile( msg, file );
         } else if( suffix.equals("eml") ) {
-            savEMLFile( msg, file );
+            saveEMLFile( msg, file );
         }
                  
     }
@@ -112,7 +114,7 @@ public class MessageParserFactory
         }
     }
     
-    private void savEMLFile(Message msg, File file) throws Exception
+    private void saveEMLFile(Message msg, File file) throws Exception
     {
         if( eml_writer == null )
             eml_writer = new EMLWriterViaJavaMail();
