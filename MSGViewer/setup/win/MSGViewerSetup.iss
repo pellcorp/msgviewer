@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MSGViewer"
-#define MyAppVersion "1.7"
+#define MyAppVersion "1.8"
 #define MyAppPublisher "Redeye Labs"
 #define MyAppURL "https://sourceforge.net/p/msgviewer"
 #define MyAppExeName "MSGViewer.jar"
@@ -91,7 +91,7 @@ begin
     //do nothing
    end else
    begin
-    if ( Versions[I][2]='.' ) and ( ( StrToInt(Versions[I][1]) > 1 ) or ( ( StrToInt(Versions[I][1]) = 1 ) and ( StrToInt(Versions[I][3]) >= 6 ) ) ) then
+    if ( Versions[I][2]='.' ) and ( ( StrToInt(Versions[I][1]) > 1 ) or ( ( StrToInt(Versions[I][1]) = 1 ) and ( StrToInt(Versions[I][3]) >= 7 ) ) ) then
     begin
      JavaInstalled := true;
     end else
@@ -111,7 +111,7 @@ begin
   Result := true;
  end else
     begin
-  Result1 := MsgBox('This tool requires Java Runtime Environment version 1.6 or newer to run. Please download and install the JRE and run this setup again. Do you want to download it now?',
+  Result1 := MsgBox('This tool requires Java Runtime Environment version 1.7 or newer to run. Please download and install the JRE and run this setup again. Do you want to download it now?',
    mbConfirmation, MB_YESNO) = idYes;
   if Result1 = false then
   begin
@@ -120,7 +120,7 @@ begin
   begin
    Result:=false;
    ShellExec('open',
-    'http://www.java.com/getjava/',
+    'http://www.java.com',
     '','',SW_SHOWNORMAL,ewNoWait,ErrorCode);
   end;
     end;
