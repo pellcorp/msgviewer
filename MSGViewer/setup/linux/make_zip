@@ -9,7 +9,7 @@ done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 PROJECT="MSGViewer"
-VERSION="1.8"
+VERSION="1.9"
 
 cd $DIR
 rm -rf output/$PROJECT

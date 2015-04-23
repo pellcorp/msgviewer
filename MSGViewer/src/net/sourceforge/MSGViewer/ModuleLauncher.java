@@ -74,9 +74,11 @@ public class ModuleLauncher extends BaseModuleLauncher
            converter = new Msg2Eml(this);
        }              
 
-       if (converter != null) {
-           converter.work();
-       } else {
+        if (converter != null) {
+            converter.setConvertToTemp(getStartupFlag(CLIHelpMSGViewer.CLI_CONVERT_TEMP));
+            converter.setOpenAfterConvert(getStartupFlag(CLIHelpMSGViewer.CLI_CONVERT_OPEN));
+            converter.work();
+        } else {
            invokeGui();
        }
     }
