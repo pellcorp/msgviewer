@@ -1,0 +1,17 @@
+.classpath
+.project
+.settings
+.checkstyle
+target
+global-groovy.log
+soapui-errors.log
+soapui.log
+gwt-unitCache
+ehcache.disk.store.dir
+*-FAILED.txt
+.gwt
+*.iml
+.idea
+.externalToolBuilders
+authjmsqput
+UsernamePasswordExit

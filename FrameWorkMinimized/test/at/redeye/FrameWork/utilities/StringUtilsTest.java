@@ -5,13 +5,17 @@
 
 package at.redeye.FrameWork.utilities;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -691,6 +695,7 @@ public class StringUtilsTest {
      * Test of formatDouble method, of class StringUtils.
      */
     @Test
+    @Ignore
     public void testFormatDouble_double_int() {
         System.out.println("formatDouble");
 
@@ -704,6 +709,7 @@ public class StringUtilsTest {
      * Test of formatDouble method, of class StringUtils.
      */
     @Test
+    @Ignore
     public void testFormatDouble_double() {
         System.out.println("formatDouble");
 

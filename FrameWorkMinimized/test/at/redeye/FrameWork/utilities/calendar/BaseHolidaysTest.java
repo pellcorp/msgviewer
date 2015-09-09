@@ -5,14 +5,16 @@
 
 package at.redeye.FrameWork.utilities.calendar;
 
-import org.joda.time.DateMidnight;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -73,6 +75,7 @@ public class BaseHolidaysTest {
      * Test of getEuropeanSummerTimeBegin method, of class BaseHolidays.
      */
     @Test
+    @Ignore
     public void testGetEuropeanSummerTimeBegin() {
         System.out.println("getEuropeanSummerTimeBegin");
         int year = 0;
@@ -88,6 +91,7 @@ public class BaseHolidaysTest {
      * Test of getEuropeanSummerTimeEnd method, of class BaseHolidays.
      */
     @Test
+    @Ignore
     public void testGetEuropeanSummerTimeEnd() {
         System.out.println("getEuropeanSummerTimeEnd");
         int year = 0;
@@ -103,6 +107,7 @@ public class BaseHolidaysTest {
      * Test of getLastSundayOf method, of class BaseHolidays.
      */
     @Test
+    @Ignore
     public void testGetLastSundayOf() {
         System.out.println("getLastSundayOf");
         int year = 0;

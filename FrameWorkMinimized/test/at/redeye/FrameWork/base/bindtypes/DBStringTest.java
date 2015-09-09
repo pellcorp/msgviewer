@@ -6,12 +6,16 @@ package at.redeye.FrameWork.base.bindtypes;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+
 import at.redeye.SqlDBInterface.SqlDBIO.impl.DBDataType;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -238,6 +242,7 @@ public class DBStringTest {
      * Test of isEmptyTrimmed method, of class DBString.
      */
     @Test
+    @Ignore
     public void testIsEmptyTrimmed() {
         System.out.println("isEmptyTrimmed");
         DBString instance = null;
