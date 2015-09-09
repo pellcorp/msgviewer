@@ -37,6 +37,8 @@ fi
 %install
 install -d -m 755 $RPM_BUILD_ROOT/opt/%{name}/lib
 install -d -m 755 $RPM_BUILD_ROOT/usr/share/applications
+install -d -m 755 $RPM_BUILD_ROOT/usr/share/mime/packages
+install -d -m 755 $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/mimetypes
 
 # jar
 install -d $RPM_BUILD_ROOT/opt/%{name}
@@ -48,6 +50,8 @@ install -m755 msg2mbox $RPM_BUILD_ROOT/opt/%{name}/
 install -m755 msg2eml $RPM_BUILD_ROOT/opt/%{name}/
 install -m644 %{name}.desktop $RPM_BUILD_ROOT/usr/share/applications
 install -m644 icon.png $RPM_BUILD_ROOT/opt/%{name}
+install -m644 application-vnd.ms-outlook.xml $RPM_BUILD_ROOT/usr/share/mime/packages
+install -m644 application-vnd.ms-outlook.png $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/mimetypes
 
 %files
 /opt/%{name}/%{name}.jar
@@ -57,5 +61,7 @@ install -m644 icon.png $RPM_BUILD_ROOT/opt/%{name}
 /opt/%{name}/msg2eml
 /opt/%{name}/icon.png
 /usr/share/applications/%{name}.desktop
+/usr/share/mime/packages/application-vnd.ms-outlook.xml
+/usr/share/icons/hicolor/48x48/mimetypes/application-vnd.ms-outlook.png
 
 

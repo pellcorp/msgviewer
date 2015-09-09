@@ -1,0 +1,6 @@
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/vnd.ms-outlook">
+		<comment>Microsoft Outlook Message</comment>
+		<glob weight="100" pattern="*.msg"/>
+	</mime-type>
+</mime-info> 
