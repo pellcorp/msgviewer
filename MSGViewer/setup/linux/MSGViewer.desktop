@@ -8,4 +8,4 @@ Categories=Application
 Version=1.0
 Type=Application
 Terminal=0
-
+MimeType=application/vnd.ms-outlook
