@@ -19,6 +19,8 @@ cp -a ../../dist/lib output/$PROJECT
 cp -a $PROJECT output/$PROJECT
 cp -a msg2mbox output/$PROJECT
 cp -a msg2eml output/$PROJECT
+cp -a application-vnd.ms-outlook.png output/$PROJECT
+cp -a application-vnd.ms-outlook.xml output/$PROJECT
 cp -a ${PROJECT}.desktop output/$PROJECT
 cp -a ../icon.ico output/$PROJECT
 cp -a ../icon.png output/$PROJECT
