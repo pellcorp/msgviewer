@@ -491,25 +491,9 @@ public class ViewerPanel extends javax.swing.JPanel implements HyperlinkListener
             */
         } else {
 
-            if (Setup.is_win_system() && root.getPlugin("ShellExec") != null ) {
-                logger.info("opening: " + content.getPath());
-
-                ShellExec shell = new ShellExec();
-                int ret = shell.execute(content.getPath());
-                logger.debug("shell exec returned: " + ret);
-            } else {
-                String open_command = helper.getOpenCommand();
-
-                String command = open_command + " \"" + content.getPath() + "\"";
-                logger.info(command);
-
-                String command_array[] = new String[2];
-
-                command_array[0] = open_command;
-                command_array[1] = content.getPath();
-
-                Process p = Runtime.getRuntime().exec(command_array);
-            }
+            logger.info("opening: " + content.getPath());
+            Desktop dt = Desktop.getDesktop();
+            dt.open(content);
         }
 
     }        
